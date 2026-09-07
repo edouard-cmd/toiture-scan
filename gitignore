@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+cache_dalles/
+*.tif
+*.laz
+*.copc.laz
+.DS_Store
+node_modules/
