@@ -1,0 +1,34 @@
+name: POC toiture
+
+on:
+  workflow_dispatch:
+    inputs:
+      adresse:
+        description: "Adresse du chantier"
+        required: true
+        default: "Place Saint-Sauveur, 14000 Caen"
+      reel:
+        description: "Metre reel de l'artisan en m2 (optionnel)"
+        required: false
+        default: ""
+
+jobs:
+  metre:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install -r requirements.txt
+
+      - name: Lancer le metre
+        run: |
+          if [ -n "${{ inputs.reel }}" ]; then
+            python poc_toiture.py "${{ inputs.adresse }}" --reel "${{ inputs.reel }}"
+          else
+            python poc_toiture.py "${{ inputs.adresse }}"
+          fi
